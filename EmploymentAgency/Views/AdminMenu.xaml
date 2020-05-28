@@ -1,0 +1,652 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:local="clr-namespace:EmploymentAgency.Views"
+        xmlns:WindowsPresentation="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="EmploymentAgency.Views.AdminMenu"
+        x:Name="window"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="595" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid x:Name="Content" Margin="0,0,0,0" Background="WhiteSmoke">
+        <Canvas x:Name="BusyIndicator" Background="#CC707070" Panel.ZIndex="600" Visibility="Hidden" >
+            <Grid Height="469" Width="792">
+                <fa:ImageAwesome Icon="Superpowers" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Spin="True" SpinDuration="4" Foreground="Black"/>
+            </Grid>
+        </Canvas>
+        <Canvas x:Name="HeaderCanvas" Margin="-4,0,-4,531">
+            <fa:ImageAwesome x:Name="menuIcon" Icon="Bars" VerticalAlignment="Center" HorizontalAlignment="Left" Width="24" Height="23" RenderTransformOrigin="0.391,0.522" Foreground="Black" Margin="10,5,0,0" MouseDown="menuIcon_MouseDown" />
+            <Canvas x:Name="timeCanvas" Height="27" Canvas.Top="530" Width="800" Background="#FF212121" Canvas.Left="0">
+                <Label x:Name="lTime1" Content="Label" Height="27" Foreground="#FFF5E0C7" Canvas.Left="0" HorizontalContentAlignment="Center" Width="800" Canvas.Top="0"/>
+            </Canvas>
+        </Canvas>
+        <Canvas x:Name="MenuCanvas" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" Height="{Binding ActualHeight, ElementName=Content, Mode=OneWay}" Background="#FF212121" Margin="-270,0,0,0" Panel.ZIndex="500">
+            <Line Fill="{Binding Background, ElementName=canvas}" X2="259" Y1="100" Y2="100" Stroke="White" Canvas.Top="-52"/>
+            <Label x:Name="lWelcome" Content="Привет, Александр!" Canvas.Left="10" Background="{Binding Background, ElementName=canvas}" Foreground="{Binding Background, ElementName=window}" FontSize="20" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium"/>
+            <Line Fill="{Binding Background, ElementName=canvas}" X2="259" Y1="100" Y2="100" Stroke="White" Canvas.Top="19"/>
+            <Label Content="До мероприятия осталось:" Canvas.Left="10" Background="{Binding Background, ElementName=canvas}" Foreground="{Binding Background, ElementName=window}" FontSize="16" FontFamily="/EmploymentAgency;component/Fonts/#Roboto" Canvas.Top="53"/>
+            <Label x:Name="lTime" Content="10д, 5ч, 7мин, 6сек" Canvas.Left="10" Background="{Binding Background, ElementName=canvas}" Foreground="{Binding Background, ElementName=window}" FontSize="16" FontFamily="/EmploymentAgency;component/Fonts/#Roboto" Canvas.Top="81"/>
+            <Button x:Name="bSearchData" Content="   ПОИСК ДАННЫХ" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" BorderBrush="#00707070" Background="{Binding Background, ElementName=canvas}" Foreground="WhiteSmoke" Height="50" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="14" HorizontalContentAlignment="Left" Template="{DynamicResource LeftMenuButton}" Canvas.Top="274" Click="bSearchData_Click" />
+            <Button x:Name="bEditProfile" Content="   РЕДАКТИРОВАТЬ ПРОФИЛЬ" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" BorderBrush="#00707070" Background="{Binding Background, ElementName=canvas}" Foreground="WhiteSmoke" Height="50" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="14" HorizontalContentAlignment="Left" Template="{DynamicResource LeftMenuButton}" Canvas.Top="174" Click="bEditProfile_Click"/>
+            <Button x:Name="bEditEvent1" Content="   РЕДАКТИРОВАТЬ МЕРОПРИЯТИЕ" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" BorderBrush="#00707070" Background="{Binding Background, ElementName=canvas}" Foreground="WhiteSmoke" Height="50" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="14" HorizontalContentAlignment="Left" Template="{DynamicResource LeftMenuButton}" Canvas.Top="224" Click="bEditEvent1_Click" />
+            <Button x:Name="bAddAdCanvas" Content="   ДОБАВИТЬ ПЛАТНЫЕ ОБЪЯВЛЕНИЯ" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" BorderBrush="#00707070" Background="{Binding Background, ElementName=canvas}" Foreground="WhiteSmoke" Height="50" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="14" HorizontalContentAlignment="Left" Template="{DynamicResource LeftMenuButton}" Canvas.Top="324" Click="bAddAdCanvas_Click"/>
+            <Button x:Name="bVacancies" Content="   РЕДАКТИРОВАТЬ ДАННЫЕ" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" BorderBrush="#00707070" Background="{Binding Background, ElementName=canvas}" Foreground="WhiteSmoke" Height="50" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="14" HorizontalContentAlignment="Left" Template="{DynamicResource LeftMenuButton}" Canvas.Top="374" />
+            <Button x:Name="bExit" Content="ВЫХОД" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" BorderBrush="#00707070" Background="{Binding Background, ElementName=canvas}" Foreground="WhiteSmoke" Height="30" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Template="{DynamicResource LeftMenuButton}" Canvas.Top="528.5" Click="bExit_Click"/>
+            <Button x:Name="bPrint" Content="   ПЕЧАТЬ ДАННЫХ" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" BorderBrush="#00707070" Background="{Binding Background, ElementName=canvas}" Foreground="WhiteSmoke" Height="50" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="14" HorizontalContentAlignment="Left" Template="{DynamicResource LeftMenuButton}" Canvas.Top="424"/>
+            <Button x:Name="bEditData" Content="   РЕДАКТИРОВАТЬ ДАННЫЕ" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" BorderBrush="#00707070" Background="{Binding Background, ElementName=canvas}" Foreground="WhiteSmoke" Height="50" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="14" HorizontalContentAlignment="Left" Template="{DynamicResource LeftMenuButton}" Canvas.Top="374" Click="bEditData_Click"/>
+            <Button x:Name="bControlData" Content="   УПРАВЛЕНИЕ ДАННЫМИ" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" BorderBrush="#00707070" Background="{Binding Background, ElementName=canvas}" Foreground="WhiteSmoke" Height="50" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="14" HorizontalContentAlignment="Left" Template="{DynamicResource LeftMenuButton}" Canvas.Top="474"/>
+            <fa:ImageAwesome x:Name="backIcon" Icon="ChevronCircleLeft" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="23" Canvas.Left="230" RenderTransformOrigin="0.391,0.522" Canvas.Top="5" Foreground="WhiteSmoke" MouseDown="backIcon_MouseDown" />
+            <Button x:Name="bMain" Content="   ГЛАВНАЯ" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" BorderBrush="#00707070" Background="{Binding Background, ElementName=canvas}" Foreground="WhiteSmoke" Height="50" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="14" HorizontalContentAlignment="Left" Template="{DynamicResource LeftMenuButton}" Canvas.Top="124" Click="bMain_Click"/>
+        </Canvas>
+        <Canvas x:Name="EditProfileCanvas" Height="404" Margin="0,28,0,0" VerticalAlignment="Top" Width="792" Background="WhiteSmoke" Visibility="Hidden">
+            <Grid x:Name="EditForm" Height="359" Width="792" HorizontalAlignment="Center" Canvas.Top="45">
+                <Canvas x:Name="User" Margin="125,38,0,288" HorizontalAlignment="Left" Width="226" Height="33">
+                    <Label Content="Email:"/>
+                    <Label x:Name="lEmail" Content="Email" Canvas.Left="100" Width="123" Height="26"/>
+                </Canvas>
+                <Canvas x:Name="Password" Margin="0,38,125,288" HorizontalAlignment="Right" Width="226" Height="33">
+                    <TextBox x:Name="TPassword" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="127" Canvas.Left="99">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Password" Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label Content="Пароль:" HorizontalAlignment="Left"/>
+                </Canvas>
+                <Canvas x:Name="Password_Copy" Margin="0,71,125,255" HorizontalAlignment="Right" Width="226" Height="33">
+                    <TextBox x:Name="TPassword1" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="127" Canvas.Left="99">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Password" Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label Content="Подтверждение:" HorizontalAlignment="Left"/>
+                </Canvas>
+                <Canvas x:Name="UName" Margin="125,71,0,255" HorizontalAlignment="Left" Width="226" Height="33">
+                    <TextBox x:Name="TName" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="127" Canvas.Left="99">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Name" Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label Content="Имя:" Height="26" Width="44" HorizontalAlignment="Left"/>
+                </Canvas>
+                <Canvas x:Name="Surname" Margin="125,105,0,221" HorizontalAlignment="Left" Width="226" Height="33">
+                    <TextBox x:Name="TSurname" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="127" Canvas.Left="99">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Surname" Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label Content="Фамилия:" Height="26" Width="61" HorizontalAlignment="Left"/>
+                </Canvas>
+                <Canvas x:Name="Patronymic" Margin="125,139,0,187" HorizontalAlignment="Left" Width="226" Height="33">
+                    <TextBox x:Name="TPatronymic" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="127" Canvas.Left="99">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Patronymic" Foreground="LightGray"/>
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label Content="Отчество:"/>
+                </Canvas>
+                <Canvas x:Name="Country" Margin="125,205,0,121" HorizontalAlignment="Left" Width="226" Height="33">
+                    <Label Content="Страна:"/>
+                    <ComboBox x:Name="cbCountry" 
+    FontSize="13"
+    Style="{DynamicResource theComboBox}"
+    Padding="15,5,15,5"
+    HorizontalContentAlignment="Left"
+    VerticalAlignment="Center"
+    MinWidth="100"
+    MaxWidth="375"
+    Grid.Row="1"
+    Grid.Column="1"
+    ItemContainerStyle="{DynamicResource theComboBoxItem}" Canvas.Left="99" Width="127" Height="23" Background="WhiteSmoke"
+>
+                        <ComboBoxItem Content="Russia"/>
+                        <ComboBoxItem Content="Ukraine"/>
+                        <ComboBoxItem Content="USA"/>
+                        <ComboBoxItem Content="Kazakhstan"/>
+                        <ComboBoxItem Content="Belarus"/>
+                        <ComboBoxItem Content="Uzbekistan"/>
+                    </ComboBox>
+                </Canvas>
+                <Canvas x:Name="Sex" Margin="125,171,0,155" HorizontalAlignment="Left" Width="226" Height="33">
+                    <Label Content="Пол:"/>
+                    <ComboBox x:Name="cbSex" 
+                        FontSize="13"
+                        Style="{DynamicResource theComboBox}"
+                        Padding="15,5,15,5"
+                        HorizontalContentAlignment="Left"
+                        VerticalAlignment="Center"
+                        MinWidth="100"
+                        MaxWidth="375"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        ItemContainerStyle="{DynamicResource theComboBoxItem}" Canvas.Left="99" Width="127" Height="23" Background="WhiteSmoke">
+                        <ComboBoxItem Content="Мужской"/>
+                        <ComboBoxItem Content="Женский"/>
+                    </ComboBox>
+                </Canvas>
+                <Canvas x:Name="Birth" Margin="125,237,0,89" HorizontalAlignment="Left" Width="226" Height="33">
+                    <Label Content="Дата рождения:"/>
+                    <DatePicker x:Name="dtBirth" Canvas.Left="99" Width="127" BorderBrush="#FFABADB3" Height="24" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <DatePicker.Resources>
+                            <Style TargetType="{x:Type DatePickerTextBox}">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
+                </Canvas>
+                <Button x:Name="bEdit" Content="Редактировать" HorizontalAlignment="Center"
+                        VerticalAlignment="Top" Width="134" Margin="0,312,0,0" RenderTransformOrigin="0.5,0.5" Background="#FF1F1F1F" Foreground="White" FontWeight="Bold" BorderBrush="#00707070" Height="24" Template="{DynamicResource ButtonControlTemplate}" Click="bEdit_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+            <Grid Height="45" Width="792">
+                <Label x:Name="lEditProfileHeader" Content="Редактирование профиля" HorizontalAlignment="Center" Margin="146,0" VerticalAlignment="Top" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="20" Width="500" HorizontalContentAlignment="Center" Height="45"/>
+            </Grid>
+            <Canvas x:Name="User_Copy" HorizontalAlignment="Left" Width="226" Height="33" Canvas.Left="0" Canvas.Top="50" Margin="125,0,0,0">
+                <Label Content="Смена данных" HorizontalAlignment="Center" VerticalAlignment="Center" Width="226" Height="33" HorizontalContentAlignment="Center" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="20"/>
+            </Canvas>
+            <Canvas x:Name="User_Copy1" HorizontalAlignment="Left" Width="226" Height="33" Canvas.Left="125" Canvas.Top="50">
+                <Label Content="Смена данных" HorizontalAlignment="Center" VerticalAlignment="Center" Width="226" Height="33" HorizontalContentAlignment="Center" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="20"/>
+            </Canvas>
+            <Canvas x:Name="cPassword" HorizontalAlignment="Right" Width="226" Height="33" Canvas.Right="125" Canvas.Top="50">
+                <Label Content="Смена пароля" HorizontalAlignment="Center" VerticalAlignment="Center" Width="226" Height="33" HorizontalContentAlignment="Center" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="20"/>
+            </Canvas>
+            <Canvas x:Name="cPasswordCaption" HorizontalAlignment="Right" Width="226" Height="33" Canvas.Right="125" Canvas.Top="141" Canvas.Left="441">
+                <TextBlock Text="Оставьте эти поля незаполненными, если вы не хотите изменять пароль." HorizontalAlignment="Center" VerticalAlignment="Center" Width="220" Height="33" TextAlignment="Justify" FontFamily="/EmploymentAgency;component/Fonts/#Roboto" TextWrapping="Wrap" Canvas.Left="6" Canvas.Top="10" Foreground="#FFABADB3"/>
+            </Canvas>
+        </Canvas>
+        <Canvas x:Name="AdCanvas" Height="502" Margin="1,28,1,0" VerticalAlignment="Top" Width="792" Background="WhiteSmoke">
+            <Grid Height="404" Width="792" HorizontalAlignment="Center">
+                <Label x:Name="lAdHeader" Content="LabelAdHeader" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="20" Width="500" HorizontalContentAlignment="Center"/>
+                <TextBlock x:Name="lAdBody" Text="LabelAdBody" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Top" FontFamily="/EmploymentAgency;component/Fonts/#Roboto" FontSize="14" TextWrapping="Wrap" Width="500" Height="300" TextAlignment="Center"/>
+            </Grid>
+        </Canvas>
+        <Canvas x:Name="EditEventCanvas" Height="502" Margin="1,28,1,0" VerticalAlignment="Top" Width="792" Background="WhiteSmoke" Visibility="Hidden">
+            <Grid Height="502" Width="792">
+                <Label Content="Редактирование мероприятие" HorizontalAlignment="Center" Margin="146,0" VerticalAlignment="Top" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="20" Width="500" HorizontalContentAlignment="Center" Height="45"/>
+                <Canvas x:Name="cEventName" Margin="0,38,0,288" HorizontalAlignment="Center" Width="246" Height="33">
+                    <TextBox x:Name="tEventName" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="127" Canvas.Left="119">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Название" Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label Content="Название:" HorizontalAlignment="Left"/>
+                </Canvas>
+                <Canvas x:Name="cEventBody" Margin="283,142,283,326" HorizontalAlignment="Center" Width="246" Height="33">
+                    <TextBox x:Name="tEventBody" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="127" Canvas.Left="119">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Описание" Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label Content="Описание:" HorizontalAlignment="Left"/>
+                </Canvas>
+                <Canvas x:Name="cEventDate" Margin="283,176,283,294" HorizontalAlignment="Center" Width="246" Height="33">
+                    <Label Content="Дата:"/>
+                    <DatePicker x:Name="dtEventDate" Canvas.Left="119" Width="127" BorderBrush="#FFABADB3" Height="24" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <DatePicker.Resources>
+                            <Style TargetType="{x:Type DatePickerTextBox}">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
+                </Canvas>
+                <Canvas x:Name="cTime" Margin="0,209,0,260" HorizontalAlignment="Center" Width="246" Height="33">
+                    <Label Content="Время:"/>
+                    <ComboBox x:Name="cbTimeH" 
+                        FontSize="13"
+                        Style="{DynamicResource theComboBox}"
+                        Padding="15,5,15,5"
+                        HorizontalContentAlignment="Left"
+                        VerticalAlignment="Center"
+                        MinWidth="65"
+                        MaxWidth="375"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        ItemContainerStyle="{DynamicResource theComboBoxItem}" Canvas.Left="51" Width="16" Height="23" Background="WhiteSmoke">
+                    </ComboBox>
+                    <ComboBox x:Name="cbTimeM" 
+                        FontSize="13"
+                        Style="{DynamicResource theComboBox}"
+                        Padding="15,5,15,5"
+                        HorizontalContentAlignment="Left"
+                        VerticalAlignment="Center"
+                        MinWidth="65"
+                        MaxWidth="375"
+                        ItemContainerStyle="{DynamicResource theComboBoxItem}" Canvas.Left="116" Width="16" Height="23" Background="WhiteSmoke"/>
+                    <ComboBox x:Name="cbTimeS" 
+                        FontSize="13"
+                        Style="{DynamicResource theComboBox}"
+                        Padding="15,5,15,5"
+                        HorizontalContentAlignment="Left"
+                        VerticalAlignment="Center"
+                        MinWidth="65"
+                        MaxWidth="375"
+                        ItemContainerStyle="{DynamicResource theComboBoxItem}" Canvas.Left="181" Width="16" Height="23" Background="WhiteSmoke"/>
+                </Canvas>
+                <Button x:Name="bEditEvent" Content="Редактировать" HorizontalAlignment="Center"
+                        VerticalAlignment="Top" Width="134" RenderTransformOrigin="0.5,0.5" Background="#FF1F1F1F" Foreground="White" FontWeight="Bold" BorderBrush="#00707070" Height="26" Template="{DynamicResource ButtonControlTemplate}" Margin="0,266,0,0" Click="bEditEvent_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Canvas>
+        <Canvas x:Name="AddBuyedAdCanvas" Height="502" Margin="0,28,0,0" VerticalAlignment="Top" Width="792" Background="WhiteSmoke" Visibility="Hidden">
+            <Grid Height="502" Width="792">
+                <Label Content="Добавить платное объявление" HorizontalAlignment="Center" Margin="146,0" VerticalAlignment="Top" FontFamily="/EmploymentAgency;component/Fonts/#Roboto Medium" FontSize="20" Width="500" HorizontalContentAlignment="Center" Height="45"/>
+                <Border CornerRadius="3" BorderThickness="2" BorderBrush="Black" Height="224" Width="304" Margin="0,45,0,233">
+                    <Image x:Name="iAdImage"  Height="224" Width="304" RenderTransformOrigin="1.19,0.725"/>
+                </Border>
+                <Button x:Name="bAddAdImage" Content="Выбрать изображение" HorizontalAlignment="Center" VerticalAlignment="Top" Width="162" RenderTransformOrigin="0.5,0.5" Background="#FF1F1F1F" Foreground="White" FontWeight="Bold" BorderBrush="#00707070" Height="26" Template="{DynamicResource ButtonControlTemplate}" Margin="0,274,0,0" Click="bAddAdImage_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Canvas x:Name="сAdTitle" Margin="0,318,0,151" HorizontalAlignment="Center" Width="304" Height="33">
+                    <TextBox x:Name="tAdTitle" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="212" Canvas.Left="92">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Название" Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label Content="Название:" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
+                </Canvas>
+                <Canvas x:Name="сAdBody" Margin="0,351,0,118" HorizontalAlignment="Center" Width="304" Height="33">
+                    <TextBox x:Name="tAdBody" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="212" Canvas.Left="92">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Оклад" Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label Content="Оклад:" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
+                </Canvas>
+                <Canvas x:Name="сAdFooter" Margin="0,384,0,85" HorizontalAlignment="Center" Width="304" Height="33">
+                    <TextBox x:Name="tAdFooter" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="212" Canvas.Left="92">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Адрес" Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label Content="Адрес:" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
+                </Canvas>
+                <Button x:Name="bAddAd" Content="Добавить" HorizontalAlignment="Center" VerticalAlignment="Top" Width="162" RenderTransformOrigin="0.5,0.5" Background="#FF1F1F1F" Foreground="White" FontWeight="Bold" BorderBrush="#00707070" Height="26" Template="{DynamicResource ButtonControlTemplate}" Margin="315,417,315,0" Click="bAddAd_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Canvas>
+        <Canvas x:Name="VacanciesCanvas" Margin="0,30,0,35" Width="792" Background="WhiteSmoke" Visibility="Hidden">
+            <Grid x:Name="VacanciesGrid" Height="501" Width="792" HorizontalAlignment="Center">
+                <Path Data="M5,102 L1374.3739,102" Fill="Black" Height="1" Canvas.Left="5" Stretch="Fill" Stroke="Black" Canvas.Top="102" Margin="-17,38,-19,462"/>
+                <Canvas HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="792" Background="White">
+                    <TextBox x:Name="TSearch" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="384" Canvas.Left="10" Canvas.Top="10">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Введите текст для поиска" Foreground="LightGray"/>
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <ComboBox x:Name="cbSearchFilter" FontSize="13" Style="{DynamicResource theComboBox}" Padding="15,5,15,5" HorizontalContentAlignment="Left" VerticalAlignment="Center" MinWidth="100" MaxWidth="375" Grid.Row="1" Grid.Column="1" ItemContainerStyle="{DynamicResource theComboBoxItem}" Canvas.Left="399" Width="212" Height="23" Canvas.Top="10">
+                        <ComboBoxItem Content="Поиск по названию"/>
+                        <ComboBoxItem Content="Поиск по описанию"/>
+                        <ComboBoxItem Content="Поиск по адресу"/>
+                    </ComboBox>
+                    <Button x:Name="bSearchVacancy" Content="Поиск" HorizontalAlignment="Center"
+                        VerticalAlignment="Top" Width="81" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5" Background="#FF1F1F1F" Foreground="White" FontWeight="Bold" BorderBrush="#00707070" Height="23" Template="{DynamicResource ButtonControlTemplate}" Canvas.Left="701" Canvas.Top="10" Click="bSearchVacancy_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button x:Name="bOpenFilters" Content="Фильтры" HorizontalAlignment="Center"
+                        VerticalAlignment="Top" Width="80" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5" Background="#FF1F1F1F" Foreground="White" FontWeight="Bold" BorderBrush="#00707070" Height="23" Template="{DynamicResource ButtonControlTemplate}" Canvas.Left="616" Canvas.Top="10" Click="bOpenFilters_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Canvas>
+                <Canvas x:Name="pageControllerCanvas" Margin="0,464,0,0" Height="37" Background="White" VerticalAlignment="Top" Panel.ZIndex="1">
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="37" Width="792">
+                        <fa:ImageAwesome x:Name="backButton" Icon="ChevronCircleLeft" VerticalAlignment="Center" HorizontalAlignment="Left" Width="23" Height="23" RenderTransformOrigin="0.391,0.522" Foreground="#FF212121" Margin="317,0,0,0" Cursor="Hand" MouseDown="backButton_MouseDown"/>
+                        <TextBlock x:Name="vacanciesPages" Text="page 1 of 1" Canvas.Left="366" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0"/>
+                        <fa:ImageAwesome x:Name="nextButton" Icon="ChevronCircleRight" VerticalAlignment="Center" HorizontalAlignment="Center" Width="23" Height="23" RenderTransformOrigin="0.391,0.522" Foreground="#FF212121" Margin="456,0,313,0" Cursor="Hand" MouseDown="nextButton_MouseDown"/>
+                    </Grid>
+                </Canvas>
+                <Canvas Margin="0,38,0,32">
+                    <Image x:Name="vacancyImage" HorizontalAlignment="Left" VerticalAlignment="Center" Width="210" Height="275" Canvas.Left="10" Canvas.Top="20"/>
+                    <TextBlock x:Name="title" Margin="243,59,10,324" TextWrapping="Wrap" Text="Title" HorizontalAlignment="Center" VerticalAlignment="Center" Height="21" Width="539"/>
+                    <TextBlock x:Name="body" Margin="243,80,10,147" TextWrapping="Wrap" Text="Title" HorizontalAlignment="Center" VerticalAlignment="Center" Height="177" Width="539"/>
+                    <TextBlock x:Name="address" Margin="243,257,10,123" TextWrapping="Wrap" Text="Title" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Width="539"/>
+                    <Canvas x:Name="filtersCanvas" HorizontalAlignment="Right" VerticalAlignment="Top" Width="259" Height="431" Background="#FF212121" Canvas.Left="789" Panel.ZIndex="500" Margin="0">
+                        <fa:ImageAwesome x:Name="closeFilters" Icon="ChevronCircleRight" VerticalAlignment="Center" HorizontalAlignment="Center" Width="23" Height="23" RenderTransformOrigin="0.391,0.522" Foreground="WhiteSmoke" Cursor="Hand" Canvas.Left="10" Canvas.Top="10" MouseDown="closeFilters_MouseDown"/>
+                        <StackPanel Height="411" Width="239" Canvas.Top="10" Canvas.Left="10">
+                            <ComboBox x:Name="cbFilters" FontSize="13" Style="{DynamicResource theComboBoxDark}" ItemContainerStyle="{DynamicResource theComboBoxItemDark}" Height="16" Background="#FF212121" Foreground="White" Margin="29,0,0,0" SelectionChanged="cbFilters_SelectionChanged" HorizontalContentAlignment="Center">
+                                <ComboBoxItem Content="Оклад"/>
+                                <ComboBoxItem Content="Режим работы"/>
+                                <ComboBoxItem Content="Образование"/>
+                            </ComboBox>
+                            <Separator Background="#FF212121"/>
+                            <ListBox x:Name="lbFiltersType" Height="344" Canvas.Left="122" Canvas.Top="140" Background="#FF212121" BorderBrush="#FFABADB3" Foreground="WhiteSmoke">
+                                <ListBoxItem>sdfdsf</ListBoxItem>
+                                <ListBox.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="3"></Setter>
+                                    </Style>
+                                </ListBox.Resources>
+                            </ListBox>
+                            <Separator Background="#FF212121"/>
+                            <Button x:Name="bClearFilter" Content="Сбросить фильтры" HorizontalAlignment="Center"
+                        VerticalAlignment="Top" Width="132" Margin="54,0,53,0" RenderTransformOrigin="0.5,0.5" Background="White" Foreground="#FF1F1F1F" FontWeight="Bold" BorderBrush="#00707070" Height="26" Template="{DynamicResource ButtonControlTemplate}" Click="bClearFilter_Click" VerticalContentAlignment="Center">
+                                <Button.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="3"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </StackPanel>
+
+
+                    </Canvas>
+                </Canvas>
+            </Grid>
+        </Canvas>
+        <Canvas x:Name="EditDataCanvas" Margin="0,30,0,35" Width="792" Background="WhiteSmoke">
+            <Grid x:Name="EditDataGrid" Height="501" Width="792" HorizontalAlignment="Center">
+                <Path Data="M5,102 L1374.3739,102" Fill="Black" Height="1" Canvas.Left="5" Stretch="Fill" Stroke="Black" Canvas.Top="102" Margin="-17,38,-19,462"/>
+                <Canvas HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="792" Background="White">
+                    <ComboBox x:Name="cbSearchDataFilter" FontSize="13" Style="{DynamicResource theComboBox}" Padding="15,5,15,5" HorizontalContentAlignment="Left" VerticalAlignment="Center" MinWidth="100" MaxWidth="375" Grid.Row="1" Grid.Column="1" ItemContainerStyle="{DynamicResource theComboBoxItem}" Canvas.Left="10" Width="212" Height="23" Canvas.Top="10" SelectionChanged="cbSearchDataFilter_SelectionChanged">
+                        <ComboBoxItem Content="Соискатели/работодатели"/>
+                        <ComboBoxItem Content="Заявки"/>
+                    </ComboBox>
+                </Canvas>
+                <DataGrid x:Name="dataGrid" Canvas.Top="42" Margin="0,39,0,0" SelectionMode="Single" SelectionUnit="Cell" ItemsSource="{Binding}" CellEditEnding="dataGrid_CellEditEnding" CanUserAddRows="False">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Удалить строку"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </Grid>
+
+        </Canvas>
+    </Grid>
+</Window>
